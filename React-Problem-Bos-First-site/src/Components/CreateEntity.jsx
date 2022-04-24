@@ -27,6 +27,7 @@ export const CreateEntity = () => {
     } catch (e) {
       console.log("e:", e.message);
     }
+    alert("Yay! Added Successfully!");
   };
 
   return (
