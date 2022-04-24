@@ -29,13 +29,8 @@ export const CreateEntity = () => {
     }
   };
 
-  const handleSort = () => {};
-
   return (
     <div>
-      <button onClick={handleSort}>Sort By Verified</button>
-      <button onClick={handleSort}>Sort By Cost Per Day</button>
-      <button onClick={handleSort}>Sort By Rating</button>
       <br />
       <input
         type="text"
