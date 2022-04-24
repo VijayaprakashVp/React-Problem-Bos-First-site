@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const [data, setData] = useState([]);
   const [sortdata, setSortdata] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:8081/Lists`)
+    fetch(`http://localhost:8081/Lists/`)
       .then((res) => res.json())
       .then((res) => {
         setData(res);
@@ -33,9 +34,18 @@ export const Home = () => {
     setSortdata(data);
   };
 
+  const handleSearch = () => {
+    let temp = data.filter((e) => e.City == "Bangalore");
+    setSortdata(temp);
+  };
+
   return (
     <div>
-      <button onClick={handleSort}>Sort by Costperday</button>
+      <input type="text" placeholder="City" />
+      <button onClick={handleSearch}>Submit</button>
+      <br />
+      <br />
+      <button onClick={handleSort}>Sort by Cost per day</button>
       <button onClick={handleRating}>Sort by Rating</button>
       <button onClick={handleVerified}>Filter by Verified</button>
       <button>Filter by City</button>
@@ -64,8 +74,10 @@ export const Home = () => {
             <th style={{ border: "1px solid gray" }}>Cost Per Day</th>
             <th style={{ border: "1px solid gray" }}>Verified</th>
             <th style={{ border: "1px solid gray" }}>Rating</th>
+            <th style={{ border: "1px solid gray" }}>Details Page</th>
           </tr>
         </thead>
+
         <tbody>
           {sortdata.map((e, i) => (
             <tr key={e.id}>
@@ -77,6 +89,9 @@ export const Home = () => {
               <td style={{ border: "1px solid gray" }}>{e.CostPerDay}</td>
               <td style={{ border: "1px solid gray" }}>{e.Verified}</td>
               <td style={{ border: "1px solid gray" }}>{e.Rating}</td>
+              <Link to={`/listing/${e.id}`}>
+                <td style={{ border: "1px solid gray" }}>Details</td>
+              </Link>
             </tr>
           ))}
         </tbody>
