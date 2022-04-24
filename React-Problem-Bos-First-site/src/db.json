@@ -1,0 +1,54 @@
+{
+  "Lists": [
+    {
+      "Name": "VTamil Selvan",
+      "City": "Tirupur",
+      "Address": "4/100",
+      "Capacity": "50",
+      "CostPerDay": "150",
+      "Verified": "false",
+      "Rating": "2.5",
+      "id": 1
+    },
+    {
+      "Name": "Saro",
+      "City": "Tirupur",
+      "Address": "4/100",
+      "Capacity": "150",
+      "CostPerDay": "100",
+      "Verified": "true",
+      "Rating": "3",
+      "id": 2
+    },
+    {
+      "Name": "Bals",
+      "City": "Tirupur",
+      "Address": "4/100",
+      "Capacity": "250",
+      "CostPerDay": "300",
+      "Verified": "true",
+      "Rating": "3.5",
+      "id": 3
+    },
+    {
+      "Name": "Vp",
+      "City": "Tirupur",
+      "Address": "4/100",
+      "Capacity": "500",
+      "CostPerDay": "250",
+      "Verified": "false",
+      "Rating": "5",
+      "id": 4
+    },
+    {
+      "Name": "Prakash",
+      "City": "Tirupur",
+      "Address": "4/100",
+      "Capacity": "50",
+      "CostPerDay": "1500",
+      "Verified": "true",
+      "Rating": "4.8",
+      "id": 5
+    }
+  ]
+}
