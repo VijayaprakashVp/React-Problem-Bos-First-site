@@ -5,50 +5,57 @@ import { Link } from "react-router-dom";
 export const Home = () => {
   const [data, setData] = useState([]);
   const [sortdata, setSortdata] = useState([]);
+  const [city, setCity] = useState("");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetch(`http://localhost:8081/Lists/`)
+    fetch(`http://localhost:8082/pets?page=${page}&size=1`)
       .then((res) => res.json())
       .then((res) => {
         setData(res);
         setSortdata(res);
       })
       .catch((err) => console.log(err.message));
-  }, []);
+  }, [page]);
+
+  // console.log("data", data);
 
   const handleSort = () => {
     let temp = [...data];
-    temp.sort((a, b) => a.CostPerDay - b.CostPerDay);
+    temp.sort((a, b) => a.costperday - b.costperday);
     setSortdata(temp);
   };
   const handleRating = () => {
     let temp = [...data];
-    temp.sort((a, b) => b.Rating - a.Rating);
+    temp.sort((a, b) => b.rating - a.rating);
     setSortdata(temp);
   };
   const handleVerified = () => {
-    let temp = data.filter((e) => e.Verified == "true");
+    let temp = data.filter((e) => e.verified == true);
     setSortdata(temp);
   };
   const handleReset = () => {
     setSortdata(data);
   };
-
   const handleSearch = () => {
-    let temp = data.filter((e) => e.City == "Bangalore");
+    let temp = data.filter((e) => e.city == city);
     setSortdata(temp);
   };
 
   return (
     <div>
-      <input type="text" placeholder="City" />
-      <button onClick={handleSearch}>Submit</button>
+      <input
+        type="text"
+        placeholder="City"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+      />
+      <button onClick={handleSearch}>Filter by City</button>
       <br />
       <br />
       <button onClick={handleSort}>Sort by Cost per day</button>
       <button onClick={handleRating}>Sort by Rating</button>
       <button onClick={handleVerified}>Filter by Verified</button>
-      <button>Filter by City</button>
       <button onClick={handleReset}>Reset</button>
 
       {/* {sortdata.map((e) => (
@@ -80,22 +87,43 @@ export const Home = () => {
 
         <tbody>
           {sortdata.map((e, i) => (
-            <tr key={e.id}>
+            <tr key={e._id}>
               <td style={{ border: "1px solid gray" }}>{i + 1}.</td>
-              <td style={{ border: "1px solid gray" }}>{e.Name}</td>
-              <td style={{ border: "1px solid gray" }}>{e.City}</td>
-              <td style={{ border: "1px solid gray" }}>{e.Address}</td>
-              <td style={{ border: "1px solid gray" }}>{e.Capacity}</td>
-              <td style={{ border: "1px solid gray" }}>{e.CostPerDay}</td>
-              <td style={{ border: "1px solid gray" }}>{e.Verified}</td>
-              <td style={{ border: "1px solid gray" }}>{e.Rating}</td>
-              <Link to={`/listing/${e.id}`}>
-                <td style={{ border: "1px solid gray" }}>Details</td>
-              </Link>
+              <td style={{ border: "1px solid gray" }}>{e.name}</td>
+              <td style={{ border: "1px solid gray" }}>{e.city}</td>
+              <td style={{ border: "1px solid gray" }}>{e.address}</td>
+              <td style={{ border: "1px solid gray" }}>{e.capacity}</td>
+              <td style={{ border: "1px solid gray" }}>{e.costperday}</td>
+              <td style={{ border: "1px solid gray" }}>
+                {e.verified ? "True" : "False"}
+              </td>
+              <td style={{ border: "1px solid gray" }}>{e.rating}</td>
+              {/* <Link to={`/listing/${e.id}`}> */}
+              <td style={{ border: "1px solid gray" }}>
+                <Link to={`/listing/${e._id}`}>Details</Link>
+              </td>
+              {/* </Link> */}
             </tr>
           ))}
         </tbody>
       </table>
+
+      <button
+        onClick={() => {
+          setPage(page - 1);
+          console.log(page);
+        }}
+      >
+        prev
+      </button>
+      <button
+        onClick={() => {
+          setPage(page + 1);
+          console.log(page);
+        }}
+      >
+        next
+      </button>
     </div>
   );
 };
